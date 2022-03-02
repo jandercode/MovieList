@@ -11,6 +11,9 @@ class MovieFetcher: ObservableObject {
     
     @Published var movies = [Movie]()
     
+    let apiKey = "db29946214e0864bc36c9884882f57f2"
+    let baseURL = "https://api.themoviedb.org/3"
+    
     init() {
         fetchAllMovies()
     }
@@ -21,7 +24,7 @@ class MovieFetcher: ObservableObject {
         //TODO show errors
         //TODO make loadURLAndDecode func
         
-        let url = URL(string: "https://api.themoviedb.org/3/movie/popular?api_key=db29946214e0864bc36c9884882f57f2&language=en-US&page=1")!
+        let url = URL(string: "\(baseURL)/movie/popular?api_key=\(apiKey)&language=en-US&page=1")!
         
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
