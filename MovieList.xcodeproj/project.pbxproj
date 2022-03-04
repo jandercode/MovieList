@@ -19,6 +19,8 @@
 		55370FA627CE4064006CF5CB /* MovieListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55370FA527CE4064006CF5CB /* MovieListView.swift */; };
 		55370FA827CE4DC9006CF5CB /* MovieRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55370FA727CE4DC9006CF5CB /* MovieRow.swift */; };
 		55370FAA27CE69FB006CF5CB /* MovieDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 55370FA927CE69FB006CF5CB /* MovieDetailView.swift */; };
+		559BE32B27D0DAE100FB2321 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559BE32A27D0DAE100FB2321 /* APIService.swift */; };
+		559BE32D27D0DC4800FB2321 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 559BE32C27D0DC4800FB2321 /* APIError.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +56,8 @@
 		55370FA527CE4064006CF5CB /* MovieListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieListView.swift; sourceTree = "<group>"; };
 		55370FA727CE4DC9006CF5CB /* MovieRow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieRow.swift; sourceTree = "<group>"; };
 		55370FA927CE69FB006CF5CB /* MovieDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDetailView.swift; sourceTree = "<group>"; };
+		559BE32A27D0DAE100FB2321 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
+		559BE32C27D0DC4800FB2321 /* APIError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -162,6 +166,8 @@
 			isa = PBXGroup;
 			children = (
 				55370FA227CE3E76006CF5CB /* MovieFetcher.swift */,
+				559BE32A27D0DAE100FB2321 /* APIService.swift */,
+				559BE32C27D0DC4800FB2321 /* APIError.swift */,
 			);
 			path = networking;
 			sourceTree = "<group>";
@@ -302,7 +308,9 @@
 				55370FA627CE4064006CF5CB /* MovieListView.swift in Sources */,
 				55370FA327CE3E76006CF5CB /* MovieFetcher.swift in Sources */,
 				55370FA127CE3D83006CF5CB /* Movie.swift in Sources */,
+				559BE32B27D0DAE100FB2321 /* APIService.swift in Sources */,
 				55370FAA27CE69FB006CF5CB /* MovieDetailView.swift in Sources */,
+				559BE32D27D0DC4800FB2321 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

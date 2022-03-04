@@ -9,6 +9,11 @@ import SwiftUI
 
 struct MovieListView: View {
     
+    //nowPlayingState = MovieListState()
+    //popularState = MovieListState()
+    //upcomingState = MovieListState()
+    //topRatedState = MovieListState()
+    
     let movies: [Movie]
     
     var body: some View {
