@@ -9,33 +9,38 @@ import SwiftUI
 
 struct MovieDetailView: View {
     
-    var movie: Movie
+    let movieID: Int
+    @ObservedObject var movieDetailState = MovieDetailState()
     
     //Load single movie
     var body: some View {
         VStack {
-            HStack {
-                AsyncImage(url: URL(string: movie.posterURL)) { image in
-                    image.resizable()
-                        .aspectRatio(contentMode: .fit)
-                } placeholder: {
-                    ProgressView()
+            if movieDetailState.movie != nil {
+                HStack {
+                    AsyncImage(url: URL(string: movieDetailState.movie!.posterURL)) { image in
+                        image.resizable()
+                            .aspectRatio(contentMode: .fit)
+                    } placeholder: {
+                        ProgressView()
+                    }
+                    .frame(width: 150, height: 220, alignment: .leading)
+                    
+                    VStack(alignment: .leading) {
+                        Text(movieDetailState.movie!.title)
+                            .bold()
+                            .padding(.bottom, 10)
+                        Text(movieDetailState.movie!.releaseDate ?? "")
+                        Text(movieDetailState.movie!.rating)
+                        Text(movieDetailState.movie!.genreText)
+                    }
+                    Spacer()
                 }
-                .frame(width: 150, height: 220, alignment: .leading)
-                
-                VStack(alignment: .leading) {
-                    Text(movie.title)
-                        .bold()
-                        .padding(.bottom, 10)
-                    Text(movie.releaseDate ?? "")
-                    Text(movie.rating)
-                }
+                .padding()
+                Text(movieDetailState.movie!.overview).padding()
                 Spacer()
-            }
-            .padding()
-            Text(movie.overview).padding()
-            Spacer()
+            } 
         }
+        .onAppear {movieDetailState.loadMovie(movieID: movieID)}
     }
 }
 

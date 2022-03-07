@@ -13,7 +13,8 @@ struct MovieResponse: Decodable {
 }
 
 
-struct Movie: Decodable, Identifiable, Hashable {
+struct Movie: Decodable, Identifiable {
+    
     
     let id: Int
     let title: String
@@ -25,6 +26,8 @@ struct Movie: Decodable, Identifiable, Hashable {
     //let runtime: Int?
     let releaseDate: String?
     
+    let genres: [MovieGenre]?
+    
     
     var posterURL: String {
         return "https://image.tmdb.org/t/p/w500\(posterPath ?? "")"
@@ -34,6 +37,14 @@ struct Movie: Decodable, Identifiable, Hashable {
         //let rating = Int(voteAverage)
         return "\(voteAverage)/10"
     }
+    
+    var genreText: String {
+        genres?.first?.name ?? "n/a"
+    }
 }
 
+struct MovieGenre: Decodable {
+    
+    let name: String
+}
 

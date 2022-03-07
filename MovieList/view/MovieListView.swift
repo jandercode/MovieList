@@ -9,26 +9,75 @@ import SwiftUI
 
 struct MovieListView: View {
     
-    //nowPlayingState = MovieListState()
-    //popularState = MovieListState()
-    //upcomingState = MovieListState()
-    //topRatedState = MovieListState()
+    @ObservedObject var nowPlayingState = MovieListState()
+    @ObservedObject var popularState = MovieListState()
+    @ObservedObject var upcomingState = MovieListState()
+    @ObservedObject var topRatedState = MovieListState()
     
-    let movies: [Movie]
     
     var body: some View {
         NavigationView {
             List {
-                ForEach(movies) { movie in
-                    //send movie id
-                    NavigationLink(destination: MovieDetailView(movie: movie)) {
-                        MovieRow(movie: movie)
+                Section(header: Text("Popular")) {
+                    if popularState.movies != nil {
+                        ForEach(popularState.movies!) {movie in
+                            //send movie id
+                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                MovieRow(movie: movie)
+                            }
+                        }
+
+                    } else {
+                        LoadingView()
                     }
-                    
                 }
+                Section(header: Text("Now Playing")) {
+                    if nowPlayingState.movies != nil {
+                        ForEach(nowPlayingState.movies!) {movie in
+                            //send movie id
+                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                MovieRow(movie: movie)
+                            }
+                        }
+
+                    } else {
+                        LoadingView()
+                    }
+                }
+                Section(header: Text("Upcoming")) {
+                    if upcomingState.movies != nil {
+                        ForEach(upcomingState.movies!) {movie in
+                            //send movie id
+                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                MovieRow(movie: movie)
+                            }
+                        }
+
+                    } else {
+                        LoadingView()
+                    }
+                }
+                Section(header: Text("Top Rated")) {
+                    if topRatedState.movies != nil {
+                        ForEach(topRatedState.movies!) {movie in
+                            //send movie id
+                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                MovieRow(movie: movie)
+                            }
+                        }
+
+                    } else {
+                        LoadingView()
+                    }
+                }
+
             }
-            .navigationBarTitle("Popular")
+            .navigationBarTitle("Movies")
         }
+        .onAppear {popularState.loadMovies(listType: "popular")}
+        .onAppear {nowPlayingState.loadMovies(listType: "now_playing")}
+        .onAppear {upcomingState.loadMovies(listType: "upcoming")}
+        .onAppear {topRatedState.loadMovies(listType: "top_rated")}
     }
 }
 

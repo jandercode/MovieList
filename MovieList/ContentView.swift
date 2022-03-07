@@ -9,11 +9,9 @@ import SwiftUI
 
 struct ContentView: View {
     
-    @StateObject var movieFetcher = MovieFetcher()
-    
     //TODO add LoadingView, ErrorView
     var body: some View {
-        MovieListView(movies: movieFetcher.movies)
+        MovieListView()
     }
 }
 
