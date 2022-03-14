@@ -13,26 +13,25 @@ struct MovieSearchView: View {
     @State var searchText = ""
     
     var body: some View {
-        NavigationView {
-            VStack {
-                Text("")
-                    .searchable(text: $searchText)
-                    .onChange(of: searchText) { newValue in
-                        if searchText != "" {
-                            movieSearchState.searchMovies(query: searchText)
+        
+            List {
+                if movieSearchState.movies != nil {
+                    ForEach(movieSearchState.movies!) {movie in
+                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
+                            MovieRow(movie: movie)
                         }
                     }
-                List {
-                    if movieSearchState.movies != nil {
-                        ForEach(movieSearchState.movies!) {movie in
-                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                                MovieRow(movie: movie)
-                            }
-                        }
-                    } 
                 }
             }
-        }.navigationTitle(Text("Search"))
+        
+        .navigationTitle(Text("Search"))
+        .searchable(text: $searchText)
+        .listStyle(.plain)
+        .onChange(of: searchText) { newValue in
+            if searchText != "" {
+                movieSearchState.searchMovies(query: searchText)
+            }
+        }
     }
 }
 
