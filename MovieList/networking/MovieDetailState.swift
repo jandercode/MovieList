@@ -29,11 +29,11 @@ class MovieDetailState: ObservableObject {
             DispatchQueue.main.async {
                 switch result {
                 case .failure(let error):
-                    print(url!)
+                    //print(url!)
                     print(error)
                 case .success(let movie):
                     self.movie = movie
-                    //print(movies)
+                    //print(url)
                 }
             }
         }

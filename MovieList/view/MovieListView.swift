@@ -16,68 +16,107 @@ struct MovieListView: View {
     
     
     var body: some View {
-        NavigationView {
+
             List {
-                Section(header: Text("Popular")) {
+                Group {
                     if popularState.movies != nil {
-                        ForEach(popularState.movies!) {movie in
-                            //send movie id
-                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                                MovieRow(movie: movie)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Popular")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack{
+                                    ForEach(popularState.movies!) {movie in
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                            MovieRow(movie: movie)
+                                        }
+                                    }
+                                }
                             }
                         }
-
                     } else {
                         LoadingView()
                     }
                 }
-                Section(header: Text("Now Playing")) {
+                .padding(.bottom, 20)
+                .listRowSeparator(.hidden)
+                
+                Group {
                     if nowPlayingState.movies != nil {
-                        ForEach(nowPlayingState.movies!) {movie in
-                            //send movie id
-                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                                MovieRow(movie: movie)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Now Playing")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack{
+                                    ForEach(nowPlayingState.movies!) {movie in
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                            MovieRow(movie: movie)
+                                        }
+                                    }
+                                }
                             }
                         }
-
                     } else {
                         LoadingView()
                     }
                 }
-                Section(header: Text("Upcoming")) {
+                .padding(.bottom, 20)
+                .listRowSeparator(.hidden)
+                Group {
                     if upcomingState.movies != nil {
-                        ForEach(upcomingState.movies!) {movie in
-                            //send movie id
-                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                                MovieRow(movie: movie)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Upcoming")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack{
+                                    ForEach(upcomingState.movies!) {movie in
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                            MovieRow(movie: movie)
+                                        }
+                                    }
+                                }
                             }
                         }
-
                     } else {
                         LoadingView()
                     }
                 }
-                Section(header: Text("Top Rated")) {
+                .padding(.bottom, 20)
+                .listRowSeparator(.hidden)
+                Group {
                     if topRatedState.movies != nil {
-                        ForEach(topRatedState.movies!) {movie in
-                            //send movie id
-                            NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
-                                MovieRow(movie: movie)
+                        VStack(alignment: .leading, spacing: 10) {
+                            Text("Top Rated")
+                                .font(.title)
+                                .fontWeight(.bold)
+                            ScrollView(.horizontal, showsIndicators: false) {
+                                HStack{
+                                    ForEach(topRatedState.movies!) {movie in
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                            MovieRow(movie: movie)
+                                        }
+                                    }
+                                }
                             }
                         }
-
                     } else {
                         LoadingView()
                     }
                 }
-
+                .padding(.bottom, 20)
+                .listRowSeparator(.hidden)
+                
             }
-            .navigationBarTitle("Movies")
-        }
-        .onAppear {popularState.loadMovies(listType: "popular")}
-        .onAppear {nowPlayingState.loadMovies(listType: "now_playing")}
-        .onAppear {upcomingState.loadMovies(listType: "upcoming")}
-        .onAppear {topRatedState.loadMovies(listType: "top_rated")}
+            //.padding(.top, -30)
+            .listStyle(.plain)
+            .navigationTitle("The Movie List")
+            
+            .onAppear(perform: {popularState.loadMovies(listType: "popular")})
+            .onAppear(perform: {nowPlayingState.loadMovies(listType: "now_playing")})
+            .onAppear(perform: {upcomingState.loadMovies(listType: "upcoming")})
+            .onAppear(perform: {topRatedState.loadMovies(listType: "top_rated")})
     }
 }
 

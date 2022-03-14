@@ -23,14 +23,14 @@ struct Movie: Decodable, Identifiable {
     let overview: String
     let voteAverage: Double
     //let voteCount: Int
-    //let runtime: Int?
+    let runtime: Int?
     let releaseDate: String?
     
     let genres: [MovieGenre]?
     
     
-    var posterURL: String {
-        return "https://image.tmdb.org/t/p/w500\(posterPath ?? "")"
+    var posterURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
     }
     
     var rating: String {

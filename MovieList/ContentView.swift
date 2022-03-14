@@ -11,7 +11,17 @@ struct ContentView: View {
     
     //TODO add LoadingView, ErrorView
     var body: some View {
-        MovieListView()
+        TabView {
+            NavigationView { MovieListView() }
+            .tabItem { Label("Home", systemImage: "film")}
+            
+            NavigationView { MovieSearchView() }
+            .tabItem {
+                Label("Search", systemImage: "magnifyingglass")
+            }
+            
+        }
+        //MovieListView()
     }
 }
 

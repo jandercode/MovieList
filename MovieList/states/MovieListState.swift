@@ -16,8 +16,6 @@ class MovieListState: ObservableObject {
     let apiKey = "db29946214e0864bc36c9884882f57f2"
     let baseURL = "https://api.themoviedb.org/3"
     
-    
-    
     private let apiService: APIService
     
     init(apiService: APIService = APIService.shared){
@@ -36,12 +34,12 @@ class MovieListState: ObservableObject {
                 self.isLoading = false
                 switch result {
                 case .failure(let error):
-                    print(url!)
+                    //print(url!)
                     self.errorMessage = error.localizedDescription
-                    print(error)
+                    print(self.errorMessage!)
                 case .success(let movies):
                     self.movies = movies
-                    //print(movies)
+                    //print(url)
                 }
             }
         }
