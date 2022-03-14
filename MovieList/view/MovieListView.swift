@@ -27,7 +27,7 @@ struct MovieListView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack{
                                     ForEach(popularState.movies!) {movie in
-                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
                                             MovieRow(movie: movie)
                                         }
                                     }
@@ -50,7 +50,7 @@ struct MovieListView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack{
                                     ForEach(nowPlayingState.movies!) {movie in
-                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
                                             MovieRow(movie: movie)
                                         }
                                     }
@@ -72,7 +72,7 @@ struct MovieListView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack{
                                     ForEach(upcomingState.movies!) {movie in
-                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
                                             MovieRow(movie: movie)
                                         }
                                     }
@@ -94,7 +94,7 @@ struct MovieListView: View {
                             ScrollView(.horizontal, showsIndicators: false) {
                                 HStack{
                                     ForEach(topRatedState.movies!) {movie in
-                                        NavigationLink(destination: MovieDetailView(movieID: movie.id)) {
+                                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
                                             MovieRow(movie: movie)
                                         }
                                     }

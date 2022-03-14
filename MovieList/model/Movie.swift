@@ -33,13 +33,49 @@ struct Movie: Decodable, Identifiable {
         return URL(string: "https://image.tmdb.org/t/p/w500\(posterPath ?? "")")!
     }
     
+    var backdropURL: URL {
+        return URL(string: "https://image.tmdb.org/t/p/w500\(backdropPath ?? "")")!
+    }
+    
     var rating: String {
         //let rating = Int(voteAverage)
-        return "\(voteAverage)/10"
+        return "\(Int(voteAverage))/10"
+    }
+    
+    var ratingStars: String {
+        let rating = Int(voteAverage)
+        var ratingStars = ""
+        for _ in 0..<rating {
+            ratingStars += "★"
+        }
+        return ratingStars
     }
     
     var genreText: String {
         genres?.first?.name ?? "n/a"
+    }
+    
+    var duration: String {
+        let formatter = DateComponentsFormatter()
+        formatter.unitsStyle = .full
+        formatter.allowedUnits = [.hour, .minute]
+        guard let runtime = runtime else {
+            return "n/a"
+        }
+        return formatter.string(from: TimeInterval(runtime) * 60) ?? "n/a"
+    }
+    
+    var releaseYear: String {
+        if let releaseDate = releaseDate {
+        
+            let formatter = DateFormatter()
+            formatter.dateFormat = "yyyy-mm-dd"
+            let date = formatter.date(from: releaseDate)
+            formatter.dateFormat = "yyyy"
+            
+            return formatter.string(from: date!)
+        }
+        return "n/a"
     }
 }
 

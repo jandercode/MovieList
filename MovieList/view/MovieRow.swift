@@ -14,9 +14,8 @@ struct MovieRow: View {
     
     var body: some View {
         LazyHStack {
-            //if movie.posterPath != nil {
                 
-                // Image Loader
+                // Async Image
                 if imageLoader.image != nil {
                     Image(uiImage: imageLoader.image!)
                         .resizable()
@@ -34,18 +33,13 @@ struct MovieRow: View {
                     .padding(.bottom, 10)
                     .frame(width: 100, alignment: .leading)
                     .multilineTextAlignment(.leading)
-                if let releaseDate = movie.releaseDate {
-                    Text(releaseDate)
-                } else {
-                    Text("n/a")
-                }
-                //Text(movie.releaseDate!)
+                Text(movie.releaseYear)
+
                 Text(movie.rating)
                 Spacer()
             }.foregroundColor(.black)
         
         }.onAppear{imageLoader.loadImage(url: movie.posterURL)}
-        //.frame(width: 280, height: 230, alignment: .leading)
     }
 }
 
