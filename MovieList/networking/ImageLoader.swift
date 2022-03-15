@@ -36,6 +36,7 @@ class ImageLoader: ObservableObject {
                 }
             } catch {
                 print("ERROR: \(error.localizedDescription)")
+                print(urlString)
             }
         }
     }

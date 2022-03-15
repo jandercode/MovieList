@@ -14,18 +14,18 @@ struct MovieRow: View {
     
     var body: some View {
         LazyHStack {
-                
-                // Async Image
-                if imageLoader.image != nil {
-                    Image(uiImage: imageLoader.image!)
-                        .resizable()
-                        .aspectRatio(2/3, contentMode: .fit)
-                        .frame(width: 150, height: 220, alignment: .leading)
-                } else {
-                    Text(movie.title)
-                        .frame(width: 150, height: 220, alignment: .center)
-                }
-            //}
+            
+            
+            if imageLoader.image != nil {
+                Image(uiImage: imageLoader.image!)
+                    .resizable()
+                    .aspectRatio(2/3, contentMode: .fit)
+                    .frame(width: 150, height: 220, alignment: .leading)
+            } else {
+                Text(movie.title)
+                    .frame(width: 150, height: 220, alignment: .center)
+            }
+            
             VStack(alignment: .leading, spacing: 5) {
                 Spacer()
                 Text(movie.title)
@@ -34,11 +34,11 @@ struct MovieRow: View {
                     .frame(width: 100, alignment: .leading)
                     .multilineTextAlignment(.leading)
                 Text(movie.releaseYear)
-
+                
                 Text(movie.rating)
                 Spacer()
             }.foregroundColor(.black)
-        
+            
         }.onAppear{imageLoader.loadImage(url: movie.posterURL)}
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import CoreData
 
 struct MovieResponse: Decodable {
     
@@ -13,7 +14,8 @@ struct MovieResponse: Decodable {
 }
 
 
-struct Movie: Decodable, Identifiable, Equatable {
+class Movie: Decodable, Identifiable, Equatable {
+    
     static func == (lhs: Movie, rhs: Movie) -> Bool {
         lhs.id == rhs.id
     }

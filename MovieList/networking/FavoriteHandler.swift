@@ -9,6 +9,7 @@ import Foundation
 import SwiftUI
 
 class FavoriteHandler: ObservableObject {
+    static let shared = FavoriteHandler()
     
     //TODO make this a singleton
     @Published var favoriteMovies = [Movie]()
@@ -29,5 +30,7 @@ class FavoriteHandler: ObservableObject {
             print("removed movie")
         }
     }
+    
+    
     
 }

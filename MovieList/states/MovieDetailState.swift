@@ -9,6 +9,7 @@ import Foundation
 
 class MovieDetailState: ObservableObject {
     
+    
     @Published var movie: Movie?
     
     let apiKey = "db29946214e0864bc36c9884882f57f2"
@@ -38,5 +39,7 @@ class MovieDetailState: ObservableObject {
             }
         }
     }
+    
+
     
 }

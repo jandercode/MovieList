@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MovieListView: View {
+struct MovieHomeView: View {
     
     @ObservedObject var nowPlayingState = MovieListState()
     @ObservedObject var popularState = MovieListState()

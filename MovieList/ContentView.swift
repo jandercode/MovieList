@@ -6,14 +6,22 @@
 //
 
 import SwiftUI
+import CoreData
 
 struct ContentView: View {
+    @Environment(\.managedObjectContext) private var viewContext
+
+    
     
     //TODO add LoadingView, ErrorView
     var body: some View {
         TabView {
-            NavigationView { MovieListView() }
+            NavigationView { MovieHomeView() }
             .tabItem { Label("Home", systemImage: "film")}
+            
+            NavigationView { FavoriteView() }
+            .tabItem { Label("Favorites", systemImage: "star")}
+            
             
             NavigationView { MovieSearchView() }
             .tabItem {
