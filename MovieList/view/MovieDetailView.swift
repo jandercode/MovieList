@@ -12,7 +12,9 @@ struct MovieDetailView: View {
     let movieID: Int
     let movieTitle: String
     @ObservedObject var movieDetailState = MovieDetailState()
-    @StateObject private var imageLoader = ImageLoader()
+    
+    @ObservedObject var favoriteHandler = FavoriteHandler()
+    //@StateObject private var imageLoader = ImageLoader()
     
     //Load single movie
     var body: some View {
@@ -47,12 +49,26 @@ struct MovieDetailView: View {
                 //                            .frame(width: 150, height: 220, alignment: .center)
                 //                    }
                 MovieOverviewView(movie: movie)
-                    .onAppear {imageLoader.loadImage(url: movieDetailState.movie!.posterURL)}
+                    //.onAppear {imageLoader.loadImage(url: movieDetailState.movie!.posterURL)}
                     .padding()
                 Text(movieDetailState.movie!.overview).padding()
                 Spacer()
+                    .toolbar {
+                        Button {
+                            if !favoriteHandler.inFavorites(movie: movie) {
+                                favoriteHandler.addMovie(movie: movie)
+                            } else {
+                                favoriteHandler.deleteMovie(movie: movie)
+                            }
+                            
+                            //movieDetailState.movie!.favorite = !movieDetailState.movie!.favorite
+                        } label: {
+                            Image(systemName: favoriteHandler.inFavorites(movie: movie) ? "star.fill" : "star")
+                        }
+                    }
             }
         }
+        
         .navigationTitle(movieTitle)
         .onAppear {movieDetailState.loadMovie(movieID: movieID)}
     }

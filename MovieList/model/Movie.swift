@@ -13,7 +13,11 @@ struct MovieResponse: Decodable {
 }
 
 
-struct Movie: Decodable, Identifiable {
+struct Movie: Decodable, Identifiable, Equatable {
+    static func == (lhs: Movie, rhs: Movie) -> Bool {
+        lhs.id == rhs.id
+    }
+    
     
     
     let id: Int
@@ -25,6 +29,7 @@ struct Movie: Decodable, Identifiable {
     //let voteCount: Int
     let runtime: Int?
     let releaseDate: String?
+    
     
     let genres: [MovieGenre]?
     
@@ -66,16 +71,13 @@ struct Movie: Decodable, Identifiable {
     }
     
     var releaseYear: String {
-        if let releaseDate = releaseDate {
+        guard let releaseDate = releaseDate else { return "n/a" }
         
-            let formatter = DateFormatter()
-            formatter.dateFormat = "yyyy-mm-dd"
-            let date = formatter.date(from: releaseDate)
-            formatter.dateFormat = "yyyy"
-            
-            return formatter.string(from: date!)
-        }
-        return "n/a"
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-mm-dd"
+        guard let date = formatter.date(from: releaseDate) else { return "n/a" }
+        formatter.dateFormat = "yyyy"
+        return formatter.string(from: date)
     }
 }
 

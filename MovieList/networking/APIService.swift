@@ -76,8 +76,6 @@ struct APIService {
             return
         }
         
-        print(url)
-        
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
             if let error = error as? URLError {
