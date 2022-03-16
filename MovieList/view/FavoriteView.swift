@@ -16,10 +16,7 @@ struct FavoriteView: View {
         animation: .default)
     private var movies: FetchedResults<FavoriteMovie>
     
-    @StateObject var imageLoader = ImageLoader()
-    
     var body: some View {
-        //NavigationView{
         List {
             ForEach(movies) { movie in
                 if let title = movie.title, let id = movie.id, let posterPath = movie.posterPath, let releaseYear = movie.releaseYear, let rating = movie.rating {
@@ -29,13 +26,19 @@ struct FavoriteView: View {
                                 switch phase {
                                 case .empty:
                                     Text(title)
+                                        .frame(width: 200, height: 300, alignment: .center)
+                                        .shadow(radius: 4)
                                 case .success(let image):
                                     image
                                         .resizable()
                                         .scaledToFill()
+                                        .cornerRadius(8)
+                                        .shadow(radius: 4)
+                                        .frame(width: 200, height: 300, alignment: .center)
                                 case .failure(_):
                                     Text(title)
-                                    
+                                        .frame(width: 200, height: 300, alignment: .center)
+                                                                            
                                 @unknown default:
                                     fatalError()
                                 }
@@ -45,13 +48,14 @@ struct FavoriteView: View {
                                 Text(title)
                                     .font(.headline)
                                     .padding(.bottom, 10)
-                                    .frame(width: 100, alignment: .leading)
                                     .multilineTextAlignment(.leading)
                                 Text(releaseYear)
-                                
                                 Text(rating)
+                                    .foregroundColor(.gray)
                                 Spacer()
-                            }.foregroundColor(.black)
+                            }
+                            .foregroundColor(.black)
+                            .frame(height: 300, alignment: .center)
                         }
                     }
                 }

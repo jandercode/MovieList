@@ -20,8 +20,6 @@ class Movie: Decodable, Identifiable, Equatable {
         lhs.id == rhs.id
     }
     
-    
-    
     let id: Int
     let title: String
     let backdropPath: String?

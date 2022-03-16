@@ -22,7 +22,6 @@ struct ContentView: View {
             NavigationView { FavoriteView() }
             .tabItem { Label("Favorites", systemImage: "star")}
             
-            
             NavigationView { MovieSearchView() }
             .tabItem {
                 Label("Search", systemImage: "magnifyingglass")

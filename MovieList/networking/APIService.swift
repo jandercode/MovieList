@@ -9,11 +9,14 @@ import Foundation
 
 struct APIService {
     
+    let apiKey = "db29946214e0864bc36c9884882f57f2"
+    let baseURL = "https://api.themoviedb.org/3"
+    
     static let shared = APIService()
     
-    func fetchMovies(url: URL?, completion: @escaping(Result<[Movie], Error>) -> Void) {
+    func fetchMovies(listType: String, completion: @escaping(Result<[Movie], Error>) -> Void) {
         
-        guard let url = url else {
+        guard let url = URL(string: "\(baseURL)/movie/\(listType)?api_key=\(apiKey)&language=en-US&page=1") else {
             let error = APIError.badURL
             completion(Result.failure(error))
             return
@@ -40,9 +43,9 @@ struct APIService {
         task.resume()
     }
     
-    //TODO func fetchMovie
-    func fetchMovie(url: URL?, completion: @escaping(Result<Movie, Error>) -> Void) {
-        guard let url = url else {
+    
+    func fetchMovie(id: Int, completion: @escaping(Result<Movie, Error>) -> Void) {
+        guard let url = URL(string: "\(baseURL)/movie/\(id)?api_key=\(apiKey)&language=en-US&page=1") else {
             let error = APIError.badURL
             completion(Result.failure(error))
             return
@@ -73,6 +76,7 @@ struct APIService {
         guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=db29946214e0864bc36c9884882f57f2&query=\(query)") else {
             let error = APIError.badURL
             completion(Result.failure(error))
+            print("https://api.themoviedb.org/3/search/movie?api_key=db29946214e0864bc36c9884882f57f2&query=\(query)")
             return
         }
         

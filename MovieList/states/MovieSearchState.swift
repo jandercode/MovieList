@@ -20,7 +20,11 @@ class MovieSearchState: ObservableObject {
     
     func searchMovies(query: String) {
         
-        apiService.searchMovie(query: query) { result in
+        let trimmedQuery = query.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        let finalQuery = trimmedQuery.replacingOccurrences(of: " ", with: "%20")
+        
+        apiService.searchMovie(query: finalQuery) { result in
             DispatchQueue.main.async {
                 switch result {
                 case .success(let response):

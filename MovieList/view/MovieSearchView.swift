@@ -18,7 +18,7 @@ struct MovieSearchView: View {
                 if movieSearchState.movies != nil {
                     ForEach(movieSearchState.movies!) {movie in
                         NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                            MovieRow(movie: movie)
+                            MovieRowSearch(movie: movie)
                         }
                     }
                 }
