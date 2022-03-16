@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct MovieListView: View {
+struct MovieHomeView: View {
     
     @ObservedObject var nowPlayingState = MovieListState()
     @ObservedObject var popularState = MovieListState()
@@ -28,7 +28,7 @@ struct MovieListView: View {
                                 HStack{
                                     ForEach(popularState.movies!) {movie in
                                         NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                                            MovieRow(movie: movie)
+                                            MovieRowPoster(movie: movie)
                                         }
                                     }
                                 }
@@ -51,7 +51,7 @@ struct MovieListView: View {
                                 HStack{
                                     ForEach(nowPlayingState.movies!) {movie in
                                         NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                                            MovieRow(movie: movie)
+                                            MovieRowBackdrop(movie: movie)
                                         }
                                     }
                                 }
@@ -73,7 +73,7 @@ struct MovieListView: View {
                                 HStack{
                                     ForEach(upcomingState.movies!) {movie in
                                         NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                                            MovieRow(movie: movie)
+                                            MovieRowPoster(movie: movie)
                                         }
                                     }
                                 }
@@ -95,7 +95,7 @@ struct MovieListView: View {
                                 HStack{
                                     ForEach(topRatedState.movies!) {movie in
                                         NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                                            MovieRow(movie: movie)
+                                            MovieRowBackdrop(movie: movie)
                                         }
                                     }
                                 }
@@ -109,7 +109,6 @@ struct MovieListView: View {
                 .listRowSeparator(.hidden)
                 
             }
-            //.padding(.top, -30)
             .listStyle(.plain)
             .navigationTitle("The Movie List")
             
@@ -120,8 +119,4 @@ struct MovieListView: View {
     }
 }
 
-//struct MovieListView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        //MovieListView()
-//    }
-//}
+

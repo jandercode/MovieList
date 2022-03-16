@@ -9,18 +9,23 @@ import SwiftUI
 
 struct MovieDetailView: View {
     
+    @Environment(\.managedObjectContext) private var viewContext
+    
+    @FetchRequest(
+        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        animation: .default)
+    private var favMovies: FetchedResults<FavoriteMovie>
+    
     let movieID: Int
     let movieTitle: String
+    @State var favorite = false
+    
     @ObservedObject var movieDetailState = MovieDetailState()
     
-    @ObservedObject var favoriteHandler = FavoriteHandler()
-    //@StateObject private var imageLoader = ImageLoader()
-    
-    //Load single movie
     var body: some View {
         ScrollView {
             if let movie = movieDetailState.movie {
-                
+                //TODO put in func
                 AsyncImage(url: movie.backdropURL) { phase in
                     switch phase {
                     case .empty:
@@ -38,32 +43,21 @@ struct MovieDetailView: View {
                             .frame(width: 150, height: 220, alignment: .center)
                     }
                 }
-                
-                //                    if imageLoader.image != nil {
-                //                        Image(uiImage: imageLoader.image!)
-                //                            .resizable()
-                //                            .aspectRatio(2/3, contentMode: .fit)
-                //                            .frame(width: 160, height: 240, alignment: .leading)
-                //                    } else {
-                //                        Text(movieDetailState.movie!.title)
-                //                            .frame(width: 150, height: 220, alignment: .center)
-                //                    }
                 MovieOverviewView(movie: movie)
-                    //.onAppear {imageLoader.loadImage(url: movieDetailState.movie!.posterURL)}
                     .padding()
-                Text(movieDetailState.movie!.overview).padding()
+                Divider()
                 Spacer()
                     .toolbar {
                         Button {
-                            if !favoriteHandler.inFavorites(movie: movie) {
-                                favoriteHandler.addMovie(movie: movie)
+                            if !inFavorites(id: movieID) {
+                                favorite = true
+                                addItem()
                             } else {
-                                favoriteHandler.deleteMovie(movie: movie)
+                                favorite = false
+                                deleteItems(id: movieID)
                             }
-                            
-                            //movieDetailState.movie!.favorite = !movieDetailState.movie!.favorite
                         } label: {
-                            Image(systemName: favoriteHandler.inFavorites(movie: movie) ? "star.fill" : "star")
+                            Image(systemName: inFavorites(id: movieID) ? "star.fill" : "star")
                         }
                     }
             }
@@ -72,6 +66,53 @@ struct MovieDetailView: View {
         .navigationTitle(movieTitle)
         .onAppear {movieDetailState.loadMovie(movieID: movieID)}
     }
+    
+    func inFavorites(id: Int) -> Bool {
+        for movie in favMovies {
+            if id == movie.id {
+                return true
+            }
+        }
+        return false
+    }
+    
+    
+    private func deleteItems(id: Int) {
+        for i in 0..<favMovies.count {
+            if id == favMovies[i].id {
+                viewContext.delete(favMovies[i])
+            }
+        }
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
+    
+    private func addItem() {
+        let newItem = FavoriteMovie(context: viewContext)
+        if let movie = movieDetailState.movie {
+            newItem.id = Int64(movieID)
+            newItem.posterPath = movie.posterPath ?? "n/a"
+            newItem.rating = movie.rating
+            newItem.timestamp = Date()
+            newItem.title = movieTitle
+            newItem.releaseYear = movie.releaseYear
+        }
+        do {
+            try viewContext.save()
+        } catch {
+            // Replace this implementation with code to handle the error appropriately.
+            // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+            let nsError = error as NSError
+            fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+        }
+    }
 }
 
 struct MovieOverviewView: View {
@@ -79,21 +120,21 @@ struct MovieOverviewView: View {
     let movie: Movie
     
     var body: some View {
-        HStack {
-            VStack(alignment: .leading) {
-                Text("\(movie.genreText) - \(movie.releaseYear) - \(movie.duration)").padding(.bottom)
-                HStack{
-                    if !movie.ratingStars.isEmpty {
-                        Text(movie.ratingStars)
-                            .foregroundColor(.yellow)
-                        Text(movie.rating)
-                    } else {
-                        Text("No Rating")
-                    }
+        
+        VStack(alignment: .leading) {
+            Text("\(movie.genreText) - \(movie.releaseYear) - \(movie.duration)").padding(.bottom)
+            HStack{
+                if !movie.ratingStars.isEmpty {
+                    Text(movie.ratingStars)
+                        .foregroundColor(.yellow)
+                    Text(movie.rating)
+                } else {
+                    Text("No Rating")
                 }
             }
-            Spacer()
-        }
+        }.frame(maxWidth: .infinity, alignment: .leading)
+        Divider().padding([.top, .bottom], -20)
+        Text(movie.overview).padding(.top, -30)
     }
 }
 
