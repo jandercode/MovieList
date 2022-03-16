@@ -9,11 +9,7 @@ import SwiftUI
 import CoreData
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-
     
-    
-    //TODO add LoadingView, ErrorView
     var body: some View {
         TabView {
             NavigationView { MovieHomeView() }
@@ -23,10 +19,7 @@ struct ContentView: View {
             .tabItem { Label("Favorites", systemImage: "star")}
             
             NavigationView { MovieSearchView() }
-            .tabItem {
-                Label("Search", systemImage: "magnifyingglass")
-            }
-            
+            .tabItem { Label("Search", systemImage: "magnifyingglass")}
         }
     }
 }

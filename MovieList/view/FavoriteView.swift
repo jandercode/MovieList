@@ -16,33 +16,15 @@ struct FavoriteView: View {
         animation: .default)
     private var movies: FetchedResults<FavoriteMovie>
     
+    //@ObservedObject var favoriteState = FavoriteState()
+    
     var body: some View {
         List {
             ForEach(movies) { movie in
                 if let title = movie.title, let id = movie.id, let posterPath = movie.posterPath, let releaseYear = movie.releaseYear, let rating = movie.rating {
                     NavigationLink(destination: MovieDetailView(movieID: Int(id), movieTitle: title)) {
                         HStack {
-                            AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { phase in
-                                switch phase {
-                                case .empty:
-                                    Text(title)
-                                        .frame(width: 200, height: 300, alignment: .center)
-                                        .shadow(radius: 4)
-                                case .success(let image):
-                                    image
-                                        .resizable()
-                                        .scaledToFill()
-                                        .cornerRadius(8)
-                                        .shadow(radius: 4)
-                                        .frame(width: 200, height: 300, alignment: .center)
-                                case .failure(_):
-                                    Text(title)
-                                        .frame(width: 200, height: 300, alignment: .center)
-                                                                            
-                                @unknown default:
-                                    fatalError()
-                                }
-                            }
+                            ImageView(posterPath: posterPath, title: title)
                             VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(title)
@@ -66,18 +48,43 @@ struct FavoriteView: View {
         .navigationTitle("Favorites")
     }
     
-    
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
             offsets.map { movies[$0] }.forEach(viewContext.delete)
-            
             do {
                 try viewContext.save()
             } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
                 let nsError = error as NSError
                 fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
+        }
+    }
+}
+
+struct ImageView: View {
+    var posterPath: String
+    var title: String
+    
+    var body: some View {
+        AsyncImage(url: URL(string: "https://image.tmdb.org/t/p/w500\(posterPath)")) { phase in
+            switch phase {
+            case .empty:
+                Text(title)
+                    .frame(width: 200, height: 300, alignment: .center)
+                    .shadow(radius: 4)
+            case .success(let image):
+                image
+                    .resizable()
+                    .scaledToFill()
+                    .cornerRadius(8)
+                    .shadow(radius: 4)
+                    .frame(width: 200, height: 300, alignment: .center)
+            case .failure(_):
+                Text(title)
+                    .frame(width: 200, height: 300, alignment: .center)
+                                                        
+            @unknown default:
+                fatalError()
             }
         }
     }

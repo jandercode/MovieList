@@ -12,7 +12,7 @@ struct MovieDetailView: View {
     @Environment(\.managedObjectContext) private var viewContext
     
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \FavoriteMovie.timestamp, ascending: true)],
         animation: .default)
     private var favMovies: FetchedResults<FavoriteMovie>
     
@@ -47,22 +47,22 @@ struct MovieDetailView: View {
                     .padding()
                 Divider()
                 Spacer()
-                    .toolbar {
-                        Button {
-                            if !inFavorites(id: movieID) {
-                                favorite = true
-                                addItem()
-                            } else {
-                                favorite = false
-                                deleteItems(id: movieID)
-                            }
-                        } label: {
-                            Image(systemName: inFavorites(id: movieID) ? "star.fill" : "star")
-                        }
-                    }
+                    
             }
         }
-        
+        .toolbar {
+            Button {
+                if !inFavorites(id: movieID) {
+                    favorite = true
+                    addItem()
+                } else {
+                    favorite = false
+                    deleteItems(id: movieID)
+                }
+            } label: {
+                Image(systemName: inFavorites(id: movieID) ? "star.fill" : "star")
+            }
+        }
         .navigationTitle(movieTitle)
         .onAppear {movieDetailState.loadMovie(movieID: movieID)}
     }
