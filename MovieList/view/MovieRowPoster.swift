@@ -12,17 +12,17 @@ struct MovieRowPoster: View {
     let movie: Movie
     
     var body: some View {
-        
-            
             VStack {
                 AsyncImage(url: movie.posterURL) { phase in
                     switch phase {
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFill()
+                            .scaledToFit()
                             .cornerRadius(8)
                             .shadow(radius: 4)
+                            .aspectRatio(2/3, contentMode: .fill)
+                            //.frame(width: 200, height: 300, alignment: .center)
                     case .empty:
                         Text(movie.title)
                     case .failure(_):

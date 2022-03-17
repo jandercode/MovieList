@@ -25,7 +25,6 @@ struct MovieDetailView: View {
     var body: some View {
         ScrollView {
             if let movie = movieDetailState.movie {
-                //TODO put in func
                 AsyncImage(url: movie.backdropURL) { phase in
                     switch phase {
                     case .empty:
@@ -137,9 +136,3 @@ struct MovieOverviewView: View {
         Text(movie.overview).padding(.top, -30)
     }
 }
-
-//struct MovieDetailView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        MovieDetailView()
-//    }
-//}

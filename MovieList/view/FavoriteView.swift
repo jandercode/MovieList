@@ -16,13 +16,16 @@ struct FavoriteView: View {
         animation: .default)
     private var movies: FetchedResults<FavoriteMovie>
     
-    //@ObservedObject var favoriteState = FavoriteState()
-    
     var body: some View {
         List {
             ForEach(movies) { movie in
-                if let title = movie.title, let id = movie.id, let posterPath = movie.posterPath, let releaseYear = movie.releaseYear, let rating = movie.rating {
+                if let title = movie.title,
+                    let id = movie.id,
+                    let posterPath = movie.posterPath,
+                    let releaseYear = movie.releaseYear,
+                    let rating = movie.rating {
                     NavigationLink(destination: MovieDetailView(movieID: Int(id), movieTitle: title)) {
+                        
                         HStack {
                             ImageView(posterPath: posterPath, title: title)
                             VStack(alignment: .leading, spacing: 5) {
@@ -87,11 +90,5 @@ struct ImageView: View {
                 fatalError()
             }
         }
-    }
-}
-
-struct FavoriteView_Previews: PreviewProvider {
-    static var previews: some View {
-        FavoriteView()
     }
 }

@@ -62,7 +62,7 @@ struct APIService {
                 decoder.keyDecodingStrategy = .convertFromSnakeCase
                 do {
                     let movie = try decoder.decode(Movie.self, from: data)
-                    
+                    print(url)
                     completion(Result.success(movie))
                 } catch {
                     completion(Result.failure(APIError.parsing(error as? DecodingError)))

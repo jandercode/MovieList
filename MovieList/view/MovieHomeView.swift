@@ -15,7 +15,6 @@ struct MovieHomeView: View {
     @ObservedObject var topRatedState = MovieListState()
     
     var body: some View {
-
             List {
                 MovieListView(movies: popularState.movies, listType: "Popular", poster: true)
                 MovieListView(movies: nowPlayingState.movies, listType: "Now Playing")
