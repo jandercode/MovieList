@@ -28,6 +28,8 @@ struct FavoriteView: View {
                         
                         HStack {
                             ImageView(posterPath: posterPath, title: title)
+                                .frame(width: 204, height: 306)
+                                .cornerRadius(8)
                             VStack(alignment: .leading, spacing: 5) {
                                 Spacer()
                                 Text(title)
@@ -40,7 +42,7 @@ struct FavoriteView: View {
                                 Spacer()
                             }
                             .foregroundColor(.black)
-                            .frame(height: 300, alignment: .center)
+                            //.frame(height: 300, alignment: .center)
                         }
                     }
                 }
@@ -73,18 +75,14 @@ struct ImageView: View {
             switch phase {
             case .empty:
                 Text(title)
-                    .frame(width: 200, height: 300, alignment: .center)
                     .shadow(radius: 4)
             case .success(let image):
                 image
                     .resizable()
                     .scaledToFill()
-                    .cornerRadius(8)
                     .shadow(radius: 4)
-                    .frame(width: 200, height: 300, alignment: .center)
             case .failure(_):
                 Text(title)
-                    .frame(width: 200, height: 300, alignment: .center)
                                                         
             @unknown default:
                 fatalError()

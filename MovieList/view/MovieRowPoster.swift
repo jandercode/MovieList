@@ -18,11 +18,9 @@ struct MovieRowPoster: View {
                     case .success(let image):
                         image
                             .resizable()
-                            .scaledToFit()
-                            .cornerRadius(8)
+                            .scaledToFill()
                             .shadow(radius: 4)
-                            .aspectRatio(2/3, contentMode: .fill)
-                            //.frame(width: 200, height: 300, alignment: .center)
+                            //.aspectRatio(2/3, contentMode: .fill)
                     case .empty:
                         Text(movie.title)
                     case .failure(_):
@@ -31,7 +29,8 @@ struct MovieRowPoster: View {
                         Text(movie.title)
                     }
                 }
-                .frame(width: 200, height: 300, alignment: .center)
+                .frame(width: 204, height: 306)
+                .cornerRadius(8)
                 
                 Text(movie.title)
                     .font(.headline)

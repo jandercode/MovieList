@@ -15,12 +15,12 @@ struct MovieListView: View {
     
     var body: some View {
         if let movies = movies {
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 14) {
                 Text(listType)
                     .font(.title)
                     .fontWeight(.bold)
                 ScrollView(.horizontal, showsIndicators: false) {
-                    HStack{
+                    LazyHStack (alignment: .top, spacing: 16){
                         ForEach(movies) {movie in
                             NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
                                 if poster {

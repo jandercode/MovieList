@@ -18,8 +18,8 @@ struct MovieRowSearch: View {
                 case .success(let image):
                     image
                         .resizable()
-                        .scaledToFit()
-                        .cornerRadius(8)
+                        .scaledToFill()
+                        
                         .shadow(radius: 4)
                 case .empty:
                     Text(movie.title)
@@ -29,8 +29,8 @@ struct MovieRowSearch: View {
                     Text(movie.title)
                 }
             }
-            .aspectRatio(2/3, contentMode: .fit)
             .frame(width: 174, height: 261, alignment: .center)
+            .cornerRadius(8)
             
             VStack {
                 Spacer()
