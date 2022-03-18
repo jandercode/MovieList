@@ -21,7 +21,7 @@ struct APIService {
             completion(Result.failure(error))
             return
         }
-            
+        
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
             if let error = error as? URLError {
@@ -45,12 +45,11 @@ struct APIService {
     
     
     func fetchMovie(id: Int, completion: @escaping(Result<Movie, Error>) -> Void) {
-        guard let url = URL(string: "\(baseURL)/movie/\(id)?api_key=\(apiKey)&language=en-US&page=1") else {
-            let error = APIError.badURL
-            completion(Result.failure(error))
+        guard let url = URL(string: "\(baseURL)/movie/\(id)?api_key=\(apiKey)&language=en-US&page=1&append_to_response=credits") else {
+            completion(Result.failure(APIError.badURL))
             return
         }
-            
+        
         let task = URLSession.shared.dataTask(with: url) { data, response, error in
             
             if let error = error as? URLError {
@@ -73,10 +72,8 @@ struct APIService {
     }
     
     func searchMovie(query: String, completion: @escaping (Result<[Movie], Error>) -> ()) {
-        guard let url = URL(string: "https://api.themoviedb.org/3/search/movie?api_key=db29946214e0864bc36c9884882f57f2&query=\(query)") else {
-            let error = APIError.badURL
-            completion(Result.failure(error))
-            print("https://api.themoviedb.org/3/search/movie?api_key=db29946214e0864bc36c9884882f57f2&query=\(query)")
+        guard let url = URL(string: "\(baseURL)/search/movie?api_key=\(apiKey)&query=\(query)&include_adult=false") else {
+            completion(Result.failure(APIError.badURL))
             return
         }
         

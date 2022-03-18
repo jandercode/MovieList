@@ -20,10 +20,10 @@ struct FavoriteView: View {
         List {
             ForEach(movies) { movie in
                 if let title = movie.title,
-                    let id = movie.id,
-                    let posterPath = movie.posterPath,
-                    let releaseYear = movie.releaseYear,
-                    let rating = movie.rating {
+                   let id = movie.id,
+                   let posterPath = movie.posterPath,
+                   let releaseYear = movie.releaseYear,
+                   let rating = movie.rating {
                     NavigationLink(destination: MovieDetailView(movieID: Int(id), movieTitle: title)) {
                         
                         HStack {
@@ -42,7 +42,6 @@ struct FavoriteView: View {
                                 Spacer()
                             }
                             .foregroundColor(.black)
-                            //.frame(height: 300, alignment: .center)
                         }
                     }
                 }
@@ -83,7 +82,7 @@ struct ImageView: View {
                     .shadow(radius: 4)
             case .failure(_):
                 Text(title)
-                                                        
+                
             @unknown default:
                 fatalError()
             }

@@ -12,33 +12,31 @@ struct MovieRowPoster: View {
     let movie: Movie
     
     var body: some View {
-            VStack {
-                AsyncImage(url: movie.posterURL) { phase in
-                    switch phase {
-                    case .success(let image):
-                        image
-                            .resizable()
-                            .scaledToFill()
-                            .shadow(radius: 4)
-                            //.aspectRatio(2/3, contentMode: .fill)
-                    case .empty:
-                        Text(movie.title)
-                    case .failure(_):
-                        Text(movie.title)
-                    @unknown default:
-                        Text(movie.title)
-                    }
+        VStack {
+            AsyncImage(url: movie.posterURL) { phase in
+                switch phase {
+                case .success(let image):
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .shadow(radius: 8)
+                case .empty:
+                    Text(movie.title)
+                case .failure(_):
+                    Text(movie.title)
+                @unknown default:
+                    Text(movie.title)
                 }
-                .frame(width: 204, height: 306)
-                .cornerRadius(8)
-                
-                Text(movie.title)
-                    .font(.headline)
-                    .padding(.bottom, 10)
-                    .frame(width: 180, alignment: .leading)
-                    .lineLimit(1)
-                    .foregroundColor(.black)
-                
+            }
+            .frame(width: 204, height: 306)
+            .cornerRadius(8)
+            
+            Text(movie.title)
+                .font(.headline)
+                .padding(.bottom, 10)
+                .frame(width: 180, alignment: .leading)
+                .lineLimit(1)
+                .foregroundColor(.black)
         }
     }
 }

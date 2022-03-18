@@ -14,16 +14,15 @@ struct MovieSearchView: View {
     
     var body: some View {
         
-            List {
-                if movieSearchState.movies != nil {
-                    ForEach(movieSearchState.movies!) {movie in
-                        NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
-                            MovieRowSearch(movie: movie)
-                        }
+        List {
+            if movieSearchState.movies != nil {
+                ForEach(movieSearchState.movies!) {movie in
+                    NavigationLink(destination: MovieDetailView(movieID: movie.id, movieTitle: movie.title)) {
+                        MovieRowSearch(movie: movie)
                     }
                 }
             }
-        
+        }
         .navigationTitle(Text("Search"))
         .searchable(text: $searchText)
         .listStyle(.plain)
@@ -32,11 +31,5 @@ struct MovieSearchView: View {
                 movieSearchState.searchMovies(query: searchText)
             }
         }
-    }
-}
-
-struct MovieSearchView_Previews: PreviewProvider {
-    static var previews: some View {
-        MovieSearchView()
     }
 }

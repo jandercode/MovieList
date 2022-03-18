@@ -11,7 +11,7 @@ import SwiftUI
 class MovieDetailState: ObservableObject {
     
     @Published var movie: Movie?
-
+    
     private let apiService: APIService
     
     init(apiService: APIService = APIService.shared){

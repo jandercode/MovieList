@@ -46,7 +46,8 @@ struct MovieDetailView: View {
                     .padding()
                 Divider()
                 Spacer()
-                    
+                CastView(movie: movie)
+                    .padding(.top, 10)
             }
         }
         .toolbar {
@@ -135,4 +136,48 @@ struct MovieOverviewView: View {
         Divider().padding([.top, .bottom], -20)
         Text(movie.overview).padding(.top, -30)
     }
+}
+
+struct CastView: View {
+    
+    let movie: Movie
+    
+    var body: some View{
+        HStack(alignment: .top) {
+            if let cast = movie.cast {
+                
+                VStack(alignment: .leading, spacing: 4) {
+                    Text("Cast").font(.headline)
+                        .padding(.bottom, 4)
+                    ForEach(cast.prefix(6)) { cast in
+                        Text(cast.name)
+                    }
+                }.frame(maxWidth: .infinity, alignment: .leading)
+                    .padding(.horizontal, 16)
+            }
+            
+            if let director = movie.directors, let producers = movie.producers {
+                VStack(alignment: .leading, spacing: 4) {
+                    
+                    Text("Director").font(.headline)
+                        .padding(.bottom, 2)
+                    ForEach(director.prefix(2)) { cast in
+                        Text(cast.name)
+                    }
+                    
+                    Text("Producers").font(.headline)
+                        .padding(.bottom, 2)
+                        .padding(.top)
+                    ForEach(producers.prefix(3)) { cast in
+                        Text(cast.name)
+                    }
+                }
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 16)
+                Spacer()
+            }
+            
+        }
+    }
+    
 }

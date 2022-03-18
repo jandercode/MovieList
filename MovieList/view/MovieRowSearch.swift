@@ -11,7 +11,6 @@ struct MovieRowSearch: View {
     let movie: Movie
     
     var body: some View {
-        
         HStack {
             AsyncImage(url: movie.posterURL) { phase in
                 switch phase {
@@ -19,7 +18,6 @@ struct MovieRowSearch: View {
                     image
                         .resizable()
                         .scaledToFill()
-                        
                         .shadow(radius: 4)
                 case .empty:
                     Text(movie.title)

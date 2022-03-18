@@ -39,5 +39,4 @@ struct MovieListView: View {
             LoadingView()
         }
     }
-
 }

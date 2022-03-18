@@ -15,19 +15,17 @@ struct MovieHomeView: View {
     @ObservedObject var topRatedState = MovieListState()
     
     var body: some View {
-            List {
-                MovieListView(movies: popularState.movies, listType: "Popular", poster: true)
-                MovieListView(movies: nowPlayingState.movies, listType: "Now Playing")
-                MovieListView(movies: upcomingState.movies, listType: "Upcoming", poster: true)
-                MovieListView(movies: topRatedState.movies, listType: "Top Rated")
-            }
-            .listStyle(.plain)
-            .navigationTitle("The Movie List")
-            .onAppear(perform: {popularState.loadMovies(listType: "popular")})
-            .onAppear(perform: {nowPlayingState.loadMovies(listType: "now_playing")})
-            .onAppear(perform: {upcomingState.loadMovies(listType: "upcoming")})
-            .onAppear(perform: {topRatedState.loadMovies(listType: "top_rated")})
+        List {
+            MovieListView(movies: popularState.movies, listType: "Popular", poster: true)
+            MovieListView(movies: nowPlayingState.movies, listType: "Now Playing")
+            MovieListView(movies: upcomingState.movies, listType: "Upcoming", poster: true)
+            MovieListView(movies: topRatedState.movies, listType: "Top Rated")
+        }
+        .listStyle(.plain)
+        .navigationTitle("The Movie List")
+        .onAppear(perform: {popularState.loadMovies(listType: "popular")})
+        .onAppear(perform: {nowPlayingState.loadMovies(listType: "now_playing")})
+        .onAppear(perform: {upcomingState.loadMovies(listType: "upcoming")})
+        .onAppear(perform: {topRatedState.loadMovies(listType: "top_rated")})
     }
 }
-
-

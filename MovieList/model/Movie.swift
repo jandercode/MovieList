@@ -26,9 +26,9 @@ class Movie: Decodable, Identifiable, Equatable {
     let posterPath: String?
     let overview: String
     let voteAverage: Double
-    //let voteCount: Int
     let runtime: Int?
     let releaseDate: String?
+    let credits: MovieCredit?
     
     
     let genres: [MovieGenre]?
@@ -79,6 +79,22 @@ class Movie: Decodable, Identifiable, Equatable {
         formatter.dateFormat = "yyyy"
         return formatter.string(from: date)
     }
+    
+    var cast: [MovieCast]? {
+        credits?.cast
+    }
+    
+    var crew: [MovieCrew]? {
+        credits?.crew
+    }
+    
+    var directors: [MovieCrew]? {
+        crew?.filter { $0.job.lowercased() == "director" }
+    }
+    
+    var producers: [MovieCrew]? {
+        crew?.filter { $0.job.lowercased() == "producer" }
+    }
 }
 
 struct MovieGenre: Decodable {
@@ -86,3 +102,20 @@ struct MovieGenre: Decodable {
     let name: String
 }
 
+struct MovieCredit: Decodable {
+    
+    let cast: [MovieCast]
+    let crew: [MovieCrew]
+}
+
+struct MovieCast: Decodable, Identifiable {
+    let id: Int
+    let character: String
+    let name: String
+}
+
+struct MovieCrew: Decodable, Identifiable {
+    let id: Int
+    let job: String
+    let name: String
+}
